@@ -24,15 +24,21 @@ export default {
   background-color: #fff;
   padding: 0.1rem;
   border: 1px solid #fafafa;
+  // border-radius: 10px;
   break-inside: avoid;
   margin-bottom: 0.15rem;
   img {
     width: 100%;
+    // border-radius: 10px;
     display: block;
   }
   .title {
-    font-size: 0.32rem;
+    font-size: 0.28rem;
+    text-align: center;
     padding: 0.2rem 0;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
   }
 }
 </style>

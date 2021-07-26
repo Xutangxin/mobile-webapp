@@ -35,7 +35,7 @@ export default {
     //获取banner数据
     async getBannerData() {
       await this.axios({
-        url: "https://ku.qingnian8.com/dataApi/qingKu/getList.php",
+        url: "/getList.php",
         params: {
           tejian: true,
         },
@@ -46,7 +46,7 @@ export default {
 
     //初始化swiper
     initSwiper() {
-      var mySwiper = new Swiper(".banner .swiper-container", {
+      this.mySwiper = new Swiper(".banner .swiper-container", {
         loop: true,
         slidesPerView: 1.2,
         centeredSlides: true,

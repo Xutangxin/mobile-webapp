@@ -13,19 +13,25 @@ export default {
 
   data() {
     return {
-      listArr: [
-        {
-          id: 1,
-          picurl: require("@/assets/images/pic1.jpg"),
-          title: "hello world",
-        },
-        {
-          id: 2,
-          picurl: require("@/assets/images/pic2.jpg"),
-          title: "hello world",
-        },
-      ],
+      listArr: [],
     };
+  },
+
+  mounted() {
+    this.getNewsData();
+  },
+
+  methods: {
+    getNewsData() {
+      this.axios({
+        url: "/getRecom.php",
+        params: {
+          num: 8,
+        },
+      }).then((res) => {
+        this.listArr = res.data;
+      });
+    },
   },
 };
 </script>
