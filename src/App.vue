@@ -1,12 +1,20 @@
  <template>
-  <div class="app">首页</div>
+  <div class="app">
+    <router-view></router-view>
+  </div>
 </template>
 
 <script>
 export default {};
 </script>
 
-<style lang="less" scoped>
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
 #app {
   font-size: 0.5rem;
 }
