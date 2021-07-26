@@ -2,14 +2,8 @@
   <div class="banner">
     <div class="swiper-container">
       <div class="swiper-wrapper">
-        <div class="swiper-slide">
-          <img src="@/assets/images/pic1.jpg" />
-        </div>
-        <div class="swiper-slide">
-          <img src="@/assets/images/pic2.jpg" />
-        </div>
-        <div class="swiper-slide">
-          <img src="@/assets/images/pic3.jpg" />
+        <div class="swiper-slide" v-for="item in bannerList" :key="item.id">
+          <img :src="item.picurl" />
         </div>
       </div>
       <div class="swiper-pagination"></div>
@@ -23,19 +17,47 @@ import Swiper, { Pagination, Autoplay } from "swiper";
 import "swiper/swiper-bundle.css";
 
 Swiper.use([Pagination, Autoplay]);
+
 export default {
-  mounted() {
-    let mySwiper = new Swiper(".banner .swiper-container", {
-      loop: true,
-      slidesPerView: 1.2,
-      centeredSlides: true,
-      pagination: {
-        el: ".banner .swiper-pagination",
-      },
-      autoplay: {
-        delay: 3000,
-      },
-    });
+  data() {
+    return {
+      bannerList: [],
+    };
+  },
+
+  //异步处理同步化
+  async mounted() {
+    await this.getBannerData();
+    this.initSwiper();
+  },
+
+  methods: {
+    //获取banner数据
+    async getBannerData() {
+      await this.axios({
+        url: "https://ku.qingnian8.com/dataApi/qingKu/getList.php",
+        params: {
+          tejian: true,
+        },
+      }).then((res) => {
+        this.bannerList = res.data;
+      });
+    },
+
+    //初始化swiper
+    initSwiper() {
+      var mySwiper = new Swiper(".banner .swiper-container", {
+        loop: true,
+        slidesPerView: 1.2,
+        centeredSlides: true,
+        pagination: {
+          el: ".banner .swiper-pagination",
+        },
+        autoplay: {
+          delay: 3000,
+        },
+      });
+    },
   },
 };
 </script>
