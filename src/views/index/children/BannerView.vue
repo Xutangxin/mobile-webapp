@@ -25,7 +25,7 @@ export default {
     };
   },
 
-  //异步处理同步化
+  //异步处理同步化， 为了获取数据后再初始化轮播图
   async mounted() {
     await this.getBannerData();
     this.initSwiper();
@@ -55,6 +55,7 @@ export default {
         },
         autoplay: {
           delay: 3000,
+          disableOnInteraction: false,
         },
       });
     },
