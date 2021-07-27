@@ -1,5 +1,5 @@
 <template>
-  <div class="item">
+  <div class="item" :class="isActive" @click="clickTabBar">
     <slot name="icon"></slot>
     <slot name="text"></slot>
   </div>
@@ -8,11 +8,21 @@
 <script>
 export default {
   props: {
-    itemObj: {
-      type: Object,
-      default: function () {
-        return {};
-      },
+    path: {
+      type: String,
+      default: "/index",
+    },
+  },
+
+  methods: {
+    clickTabBar() {
+      this.$router.push(this.path);
+    },
+  },
+
+  computed: {
+    isActive() {
+      return this.$route.path === this.path ? "active" : "";
     },
   },
 };

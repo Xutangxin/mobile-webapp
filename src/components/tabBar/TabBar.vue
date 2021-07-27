@@ -1,6 +1,6 @@
 <template>
   <div class="tabbar">
-    <TabBarIetm v-for="item in tabList" :key="item.name">
+    <TabBarIetm v-for="item in tabList" :key="item.name" :path="item.path">
       <template v-slot:icon>
         <div class="icon">
           <span class="iconfont" :class="item.icon"></span>
@@ -40,7 +40,7 @@ export default {
         {
           name: "文章",
           icon: "icon-integral-fill",
-          path: "/art",
+          path: "/article",
         },
       ],
     };

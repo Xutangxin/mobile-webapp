@@ -1,10 +1,22 @@
 <template>
-  <div class="list">list</div>
+  <div class="list">
+    <HeaderView />
+    list
+    <TabBar />
+  </div>
 </template>
 
 <script>
-export default {};
+import HeaderView from "@/components/HeaderView";
+import TabBar from "@/components/tabBar/TabBar";
+
+export default {
+  components: {
+    HeaderView,
+    TabBar,
+  },
+};
 </script>
 
-<style>
+<style lang="less" scoped>
 </style>
