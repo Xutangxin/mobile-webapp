@@ -2,11 +2,12 @@
 
 import { request } from '@/network/request';
 
-export function getArticleList() {
+export function getArticleList(page) {
     return request({
         url: "/getArticle.php",
         params: {
-            num: 12,
+            num: 9,
+            page: page,
         }
     });
 
