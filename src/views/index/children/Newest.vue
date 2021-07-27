@@ -6,6 +6,7 @@
 
 <script>
 import NewestItem from "@/components/NewestItem";
+import { newestAxios } from "@/network/indexAxios";
 export default {
   components: {
     NewestItem,
@@ -23,12 +24,7 @@ export default {
 
   methods: {
     getNewsData() {
-      this.axios({
-        url: "/getRecom.php",
-        params: {
-          num: 8,
-        },
-      }).then((res) => {
+      newestAxios().then((res) => {
         this.listArr = res.data;
       });
     },

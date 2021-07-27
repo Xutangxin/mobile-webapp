@@ -6,33 +6,29 @@
 
 <script>
 import ArtItem from "@/components/ArtItem.vue";
+import { articleAxios } from "@/network/indexAxios";
 export default {
   components: {
     ArtItem,
   },
   data() {
     return {
-      artArrList: [
-        {
-          id: 1,
-          title: "title1",
-          time: "2020-02-02",
-          hits: 22,
-        },
-        {
-          id: 2,
-          title: "title2",
-          time: "2020-02-02",
-          hits: 33,
-        },
-        {
-          id: 3,
-          title: "title2",
-          time: "2020-02-02",
-          hits: 33,
-        },
-      ],
+      artArrList: [],
     };
+  },
+
+  mounted() {
+    this.getArticleData();
+  },
+
+  methods: {
+    getArticleData() {
+      articleAxios({
+        url: "/getArticle.php",
+      }).then((res) => {
+        this.artArrList = res.data;
+      });
+    },
   },
 };
 </script>

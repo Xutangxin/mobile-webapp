@@ -15,6 +15,7 @@
 // import { bnrAxios } from "@/network/indexAxios";
 import Swiper, { Pagination, Autoplay } from "swiper";
 import "swiper/swiper-bundle.css";
+import { bannerAxios } from "@/network/indexAxios";
 
 Swiper.use([Pagination, Autoplay]);
 
@@ -34,12 +35,7 @@ export default {
   methods: {
     //获取banner数据
     async getBannerData() {
-      await this.axios({
-        url: "/getList.php",
-        params: {
-          tejian: true,
-        },
-      }).then((res) => {
+      await bannerAxios().then((res) => {
         this.bannerList = res.data;
       });
     },

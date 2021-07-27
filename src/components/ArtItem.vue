@@ -1,18 +1,18 @@
 <template>
   <div class="artItem">
     <div class="pic">
-      <img src="@/assets/images/pic1.jpg" alt="" />
+      <img :src="itemObj.picurl" alt="" />
     </div>
     <div class="text">
       <div class="title">{{ itemObj.title }}</div>
       <div class="info">
         <div class="time">
           <i class="iconfont icon-clock"></i>
-          {{ itemObj.time }}
+          {{ this.myDate(itemObj.posttime) }}
         </div>
         <div class="hits">
           <i class="iconfont icon-browse"></i>
-          {{ itemObj.hits }}
+          {{ this.getNum(itemObj.hits) }}
         </div>
       </div>
     </div>
@@ -20,6 +20,7 @@
 </template>
 
 <script>
+import common from "@/assets/js/common.js";
 export default {
   props: {
     itemObj: {
@@ -27,6 +28,16 @@ export default {
       default() {
         return {};
       },
+    },
+  },
+
+  methods: {
+    getNum(str) {
+      return common.getNum(str);
+    },
+
+    myDate(str) {
+      return common.myDate(str);
     },
   },
 };
