@@ -4,6 +4,8 @@ import VueRouter from 'vue-router'
 const Index = () => import('@/views/index/Index');
 const List = () => import('@/views/list/List');
 const ArticleView = () => import('@/views/article/ArticleView');
+const InsView = () => import('@/views/ins/InsView');
+
 
 
 
@@ -20,14 +22,14 @@ const routes = [
   },
   {
     path: "/list",
-    component: ArticleView,
+    component: List,
   }, {
     path: '/article',
     component: ArticleView,
   },
   {
     path: '/ins',
-    component: ArticleView,
+    component: InsView,
   }
 
 ]

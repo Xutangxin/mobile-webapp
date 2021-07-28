@@ -1,7 +1,7 @@
 <template>
-  <div class="artView">
+  <div class="insView">
     <HeaderView />
-    <div class="artMain" ref="artMain">
+    <div class="insMain" ref="insMain">
       <div class="content">
         <div class="updown">
           <div v-show="isUpDown">下拉刷新</div>
@@ -10,8 +10,8 @@
             <div v-show="!isLoading">请求成功</div>
           </div>
         </div>
-        <div class="artBox" v-for="item in articleList" :key="item.id">
-          <ArtItem :itemObj="item" />
+        <div class="insItem" v-for="item in insList" :key="item.id">
+          <NewestItem :itemObj="item" />
         </div>
         <div class="more">
           <div v-show="isMore">正在加载...</div>
@@ -30,65 +30,57 @@ import PullDown from "@better-scroll/pull-down";
 BScroll.use(Pullup);
 BScroll.use(PullDown);
 import HeaderView from "@/components/HeaderView";
-import ArtItem from "@/components/ArtItem";
 import TabBar from "@/components/tabBar/TabBar";
-import { getArticleList } from "@/network/innerAxios";
+import NewestItem from "@/components/NewestItem";
+import { getInsFun } from "@/network/innerAxios";
 
 export default {
   components: {
     HeaderView,
     TabBar,
-    ArtItem,
+    NewestItem,
   },
 
   data() {
     return {
-      articleList: [],
-      resData: [],
+      insList: [],
       isMore: false,
       isUpDown: true,
       isLoading: true,
       bscroll: null,
       page: 1,
+      resData: [],
     };
   },
 
   created() {
-    this.getArticleData();
+    this.getInsData();
   },
 
-  // async mounted() {
-  //   await this.getArticleData();
-  //   this.initScroll();
-  // },
   mounted() {
     this.initScroll();
   },
 
   methods: {
-    //初始化scroll
+    //获取文章数据
+    async getInsData() {
+      await getInsFun(this.page).then((res) => {
+        let oldList = this.insList;
+        let newList = oldList.concat(res.data);
+        this.resData = res.data;
+        this.insList = newList;
+      });
+    },
+
+    //初始化bscroll
     initScroll() {
-      this.bscroll = new BScroll(this.$refs.artMain, {
+      this.bscroll = new BScroll(this.$refs.insMain, {
         pullUpLoad: true,
         pullDownRefresh: true,
+        click: true,
       });
       this.bscroll.on("pullingUp", this.pullUpFun);
       this.bscroll.on("pullingDown", this.pullDownFun);
-    },
-
-    //下拉刷新
-    async pullDownFun() {
-      this.isUpDown = false;
-      this.page = 1;
-      this.articleList = [];
-      await this.getArticleData();
-      this.isLoading = false;
-      setTimeout(() => {
-        this.bscroll.finishPullDown();
-        this.isUpDown = true;
-        this.isLoading = true;
-      }, 600);
-      this.bscroll.refresh();
     },
 
     //触底加载更多
@@ -100,45 +92,57 @@ export default {
       }
       this.isMore = true;
       this.page++;
-      await this.getArticleData();
+      await this.getInsData();
       this.bscroll.finishPullUp();
       this.bscroll.refresh();
     },
 
-    //获取文章数据
-    async getArticleData() {
-      await getArticleList(this.page).then((res) => {
-        let oldList = this.articleList;
-        let newList = oldList.concat(res.data);
-        this.resData = res.data;
-        this.articleList = newList;
-      });
+    //下拉刷新
+    async pullDownFun() {
+      this.isUpDown = false;
+      this.page = 1;
+      this.insList = [];
+      await this.getInsData();
+      this.isLoading = false;
+      setTimeout(() => {
+        this.bscroll.finishPullDown();
+        this.isUpDown = true;
+        this.isLoading = true;
+      }, 600);
+      this.bscroll.refresh();
     },
   },
 };
 </script>
 
 <style lang="less" scoped>
-.artMain {
+.insMain {
+  padding: 0 0.2rem;
   height: calc(100vh - 2rem);
   overflow: hidden;
-  padding: 0 0.2rem;
-  .more,
-  .updown {
-    font-size: 0.28rem;
-    color: #888;
-    text-align: center;
-    line-height: 3em;
-  }
-  .updown {
-    position: absolute;
-    width: 100%;
-    top: 0;
-    left: 0;
-    transform: translateY(-100%);
-  }
-  .artBox {
-    padding-top: 0.1rem;
+  .content {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    .insItem {
+      width: 48%;
+      padding-top: 0.2rem;
+    }
+    .more,
+    .updown {
+      font-size: 0.28rem;
+      color: #888;
+      text-align: center;
+      line-height: 3em;
+      width: 100%;
+    }
+    .updown {
+      position: absolute;
+      width: 100%;
+      top: 0;
+      left: 0;
+      transform: translateY(-100%);
+    }
   }
 }
 </style>
