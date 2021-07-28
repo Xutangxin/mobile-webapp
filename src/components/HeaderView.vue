@@ -1,6 +1,7 @@
 <template>
   <div class="headerView">
-    <img src="@/assets/images/logo.png" alt="" />
+    <!-- <img src="@/assets/images/logo.png" alt="" /> -->
+    <div class="text">Explore the bigger world</div>
     <div class="search">
       <span class="iconfont icon-search"></span>
     </div>
@@ -22,6 +23,11 @@ export default {};
   padding: 0 0.3rem;
   img {
     height: 0.8rem;
+  }
+  .text {
+    font-size: 0.35rem;
+    font-weight: bolder;
+    color: #fff;
   }
 
   .search {

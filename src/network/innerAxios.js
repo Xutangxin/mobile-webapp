@@ -23,3 +23,21 @@ export function getInsFun(page = 1) {
     });
 
 }
+
+export function getNavFun() {
+    return request({
+        url: "/infoClass.php",
+    });
+
+}
+
+export function getListFun(page = 1, cid = 47) {
+    return request({
+        url: "/getList.php",
+        params: {
+            page: page,
+            cid: cid,
+        }
+    });
+
+}

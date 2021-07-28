@@ -32,9 +32,10 @@ export default {
 .item {
   height: 100%;
   text-align: center;
+  padding-top: 0.03rem;
   color: #999999;
   .iconfont {
-    font-size: 0.5rem;
+    font-size: 0.4rem;
     display: block;
   }
   &.active {
