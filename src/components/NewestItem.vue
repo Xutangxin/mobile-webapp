@@ -1,5 +1,5 @@
 <template>
-  <div class="newBox">
+  <div class="newBox" @click="clickItem(itemObj.id)">
     <img :src="itemObj.picurl" alt="" />
     <div class="title">{{ itemObj.title }}</div>
   </div>
@@ -13,6 +13,17 @@ export default {
       default: function () {
         return {};
       },
+    },
+  },
+
+  methods: {
+    clickItem(data) {
+      this.$router.push({
+        path: "/detail",
+        query: {
+          id: data,
+        },
+      });
     },
   },
 };

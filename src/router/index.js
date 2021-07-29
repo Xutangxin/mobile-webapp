@@ -5,8 +5,7 @@ const Index = () => import('@/views/index/Index');
 const List = () => import('@/views/list/List');
 const ArticleView = () => import('@/views/article/ArticleView');
 const InsView = () => import('@/views/ins/InsView');
-
-
+const Detail = () => import('@/views/detail/Detail');
 
 
 Vue.use(VueRouter)
@@ -30,6 +29,10 @@ const routes = [
   {
     path: '/ins',
     component: InsView,
+  },
+  {
+    path: '/detail',
+    component: Detail,
   }
 
 ]

@@ -71,6 +71,7 @@ export default {
       this.bscroll = new BScroll(this.$refs.artMain, {
         pullUpLoad: true,
         pullDownRefresh: true,
+        click: true,
       });
       this.bscroll.on("pullingUp", this.pullUpFun);
       this.bscroll.on("pullingDown", this.pullDownFun);

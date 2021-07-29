@@ -2,6 +2,7 @@
 
 import { request } from '@/network/request';
 
+//文章页面
 export function getArticleList(page = 1) {
     return request({
         url: "/getArticle.php",
@@ -13,6 +14,7 @@ export function getArticleList(page = 1) {
 
 }
 
+//灵感页面
 export function getInsFun(page = 1) {
     return request({
         url: "/getList.php",
@@ -24,6 +26,8 @@ export function getInsFun(page = 1) {
 
 }
 
+
+//分类页面
 export function getNavFun() {
     return request({
         url: "/infoClass.php",
@@ -37,6 +41,19 @@ export function getListFun(page = 1, cid = 47) {
         params: {
             page: page,
             cid: cid,
+        }
+    });
+
+}
+
+//详情页面
+export function getDetailFun(cid, id, type) {
+    return request({
+        url: "/getDetail.php",
+        params: {
+            cid: cid,
+            id: id,
+            type: type,
         }
     });
 
