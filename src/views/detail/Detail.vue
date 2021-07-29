@@ -1,7 +1,7 @@
 <template>
   <div class="detail">
     <div class="header">
-      <div class="icon">
+      <div class="icon" @click="goBack">
         <span class="iconfont icon-arrow-left"></span>
       </div>
       <div class="title">{{ detail.title }}</div>
@@ -42,32 +42,32 @@ export default {
     return {
       detail: {},
       id: 0,
-      cid: 8,
+      cid: 0,
       type: "img",
     };
   },
 
   created() {
     this.id = this.$route.query.id;
-    console.log(this.id);
+    this.cid = this.$route.query.cid ? this.$route.query.cid : 0;
+    this.type = this.$route.query.type ? this.$route.query.type : "img";
+
     this.getDetailData();
   },
-
-  // mounted() {
-  //   this.id = this.$route.query.id;
-  //   console.log(this.id);
-  // },
 
   methods: {
     async getDetailData() {
       let res = await getDetailFun(this.id, this.cid, this.type);
-      console.log(res);
       let cid = res.data.classid;
       let cidArr = await getNavFun();
-      console.log(cidArr.data);
+
       cidArr.data.forEach((item) => {
         if (item.id == cid) {
           res.data.className = item.classname;
+        } else if (cid == 16) {
+          res.data.className = "文章干货";
+        } else if (cid == 14) {
+          res.data.className = "灵感创意";
         }
       });
 
@@ -76,6 +76,10 @@ export default {
 
     formatDate(time) {
       return common.myDate(time, 3);
+    },
+
+    goBack() {
+      this.$router.back();
     },
   },
 };

@@ -18,21 +18,41 @@ const routes = [
   {
     path: "/index",
     component: Index,
+    meta: {
+      keepAlive: true,
+      title: '首页'
+    }
   },
   {
     path: "/list",
     component: List,
+    meta: {
+      keepAlive: true,
+      title: '分类'
+    }
   }, {
     path: '/article',
     component: ArticleView,
+    meta: {
+      keepAlive: true,
+      title: '文章'
+    }
   },
   {
     path: '/ins',
     component: InsView,
+    meta: {
+      keepAlive: true,
+      title: '灵感'
+
+    }
   },
   {
     path: '/detail',
     component: Detail,
+    meta: {
+      title: '详情'
+    }
   }
 
 ]
@@ -40,5 +60,10 @@ const routes = [
 const router = new VueRouter({
   routes
 })
+
+router.beforeEach((to, from, next) => {
+  document.title = to.meta.title;
+  next();
+});
 
 export default router

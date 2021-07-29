@@ -16,7 +16,7 @@ export default {
 
   methods: {
     clickTabBar() {
-      this.$router.push(this.path);
+      this.$router.replace(this.path);
     },
   },
 

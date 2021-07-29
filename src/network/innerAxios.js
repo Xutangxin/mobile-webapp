@@ -47,13 +47,13 @@ export function getListFun(page = 1, cid = 47) {
 }
 
 //详情页面
-export function getDetailFun(cid, id, type) {
+export function getDetailFun(id, cid, type) {
     return request({
         url: "/getDetail.php",
         params: {
-            cid: cid,
-            id: id,
-            type: type,
+            id,
+            cid,
+            type,
         }
     });
 

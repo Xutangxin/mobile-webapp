@@ -1,7 +1,7 @@
 <template>
   <div class="headerView">
     <!-- <img src="@/assets/images/logo.png" alt="" /> -->
-    <div class="text">Explore the bigger world</div>
+    <div class="text" @click="goHome">Explore the bigger world</div>
     <div class="search">
       <span class="iconfont icon-search"></span>
     </div>
@@ -9,7 +9,15 @@
 </template>
 
 <script>
-export default {};
+export default {
+  methods: {
+    goHome() {
+      if (this.$route.path !== "/index") {
+        this.$router.push("/index");
+      }
+    },
+  },
+};
 </script>
 
 <style lang="less" scoped>

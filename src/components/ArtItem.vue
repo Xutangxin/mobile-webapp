@@ -1,5 +1,5 @@
 <template>
-  <div class="artItem">
+  <div class="artItem" @click="clickItem(itemObj.id, itemObj.classid)">
     <div class="pic">
       <img :src="itemObj.picurl" alt="" />
     </div>
@@ -38,6 +38,10 @@ export default {
 
     myDate(str) {
       return common.myDate(str);
+    },
+
+    clickItem(id, cid) {
+      this.$router.push("/detail?id=" + id + "&type=list&cid=" + cid);
     },
   },
 };
