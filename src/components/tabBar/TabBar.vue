@@ -56,5 +56,8 @@ export default {
   font-size: 0.3rem;
   display: flex;
   justify-content: space-around;
+  // .text {
+  //   font-size: 0.3rem;
+  // }
 }
 </style>

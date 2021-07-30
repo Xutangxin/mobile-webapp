@@ -3,7 +3,7 @@
     <!-- <img src="@/assets/images/logo.png" alt="" /> -->
     <div class="text" @click="goHome">Explore the bigger world</div>
     <div class="search">
-      <span class="iconfont icon-search"></span>
+      <span class="iconfont icon-search" @click="goSearch"></span>
     </div>
   </div>
 </template>
@@ -13,8 +13,12 @@ export default {
   methods: {
     goHome() {
       if (this.$route.path !== "/index") {
-        this.$router.push("/index");
+        this.$router.replace("/index");
       }
+    },
+
+    goSearch() {
+      this.$router.push("/search");
     },
   },
 };

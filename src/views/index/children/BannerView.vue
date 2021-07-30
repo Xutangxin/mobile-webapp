@@ -2,7 +2,12 @@
   <div class="banner">
     <div class="swiper-container">
       <div class="swiper-wrapper">
-        <div class="swiper-slide" v-for="item in bannerList" :key="item.id">
+        <div
+          class="swiper-slide"
+          v-for="item in bannerList"
+          :key="item.id"
+          @click="toDetail(item.id, item.classid)"
+        >
           <img :src="item.picurl" />
         </div>
       </div>
@@ -54,6 +59,11 @@ export default {
           disableOnInteraction: false,
         },
       });
+    },
+
+    //点击去往详情页
+    toDetail(id, cid) {
+      this.$router.push(`/detail?id=${id}&&cid=${cid}`);
     },
   },
 };

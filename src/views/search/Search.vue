@@ -8,52 +8,109 @@
     </div>
 
     <div class="searchTop">
-      <input type="text" class="kwd" v-model="kwd" />
-      <input type="button" value="搜索" class="btn" />
+      <input
+        type="text"
+        class="kwd"
+        v-model="kwd"
+        ref="search"
+        @change="onSearch"
+      />
+      <input type="button" value="搜索" class="btn" @click="onSearch" />
     </div>
 
-    <div class="history">
+    <div class="history" v-show="hisArr.length">
       <div class="top">
         <div class="title">历史记录</div>
         <div class="icon">
-          <span class="iconfont icon-ashbin"></span>
+          <span class="iconfont icon-ashbin" @click="onDel"></span>
         </div>
       </div>
       <div class="list">
-        <div class="item">item</div>
-        <div class="item">he</div>
-        <div class="item">item</div>
-        <div class="item">she</div>
-        <div class="item">item</div>
-        <div class="item">he</div>
-        <div class="item">item item</div>
-        <div class="item">she</div>
-        <div class="item">item</div>
-        <div class="item">he</div>
-        <div class="item">item</div>
-        <div class="item">she</div>
+        <div
+          class="item"
+          v-for="item in hisArr"
+          :key="item"
+          @click="clickItem(item)"
+        >
+          {{ item }}
+        </div>
       </div>
     </div>
 
-    <div class="seaMain">
-      <div class="row">hello</div>
-      <div class="row">hello</div>
-      <div class="row">hello</div>
-      <div class="row">hello world how are you?</div>
+    <div class="seaMain" v-show="listArr.length">
+      <div
+        class="row"
+        v-for="item in listArr"
+        :key="item.id"
+        @click="toDetail(item.id, item.classid)"
+      >
+        {{ item.title }}
+      </div>
+    </div>
+
+    <div class="noData" v-show="!listArr.length">
+      <div>
+        <span class="iconfont icon-warning"></span>
+      </div>
+      <div>暂无内容</div>
     </div>
   </div>
 </template>
 
 <script>
+import { getSearchFun } from "@/network/innerAxios";
 export default {
   data() {
     return {
-      kwd: "search...",
+      kwd: "",
+      listArr: [],
+      hisArr: [],
     };
   },
+
+  mounted() {
+    this.getFocus();
+    let localHisArr = JSON.parse(localStorage.getItem("localHisArr"));
+    this.hisArr = localHisArr ? localHisArr : [];
+  },
+
   methods: {
     goBack() {
       this.$router.back();
+    },
+
+    getFocus() {
+      this.$refs.search.focus();
+    },
+
+    onSearch() {
+      //历史记录去重
+      this.hisArr.unshift(this.kwd);
+      this.hisArr = [...new Set(this.hisArr)];
+
+      //设置缓存
+      let localHisArr = JSON.stringify(this.hisArr);
+      localStorage.setItem("localHisArr", localHisArr);
+
+      getSearchFun(this.kwd).then((res) => {
+        this.listArr = res.data;
+      });
+    },
+
+    onDel() {
+      localStorage.removeItem("localHisArr");
+      this.hisArr = [];
+    },
+
+    //点击历史记录
+    clickItem(val) {
+      this.kwd = val;
+      this.onSearch();
+    },
+
+    //点击搜索结果去详情页
+    toDetail(id, cid) {
+      this.$router.push(`/detail?id=${id}&&cid=${cid}`);
     },
   },
 };
@@ -165,6 +222,7 @@ export default {
   width: 7.1rem;
   padding: 0.2rem;
   margin: 0 auto;
+  margin-top: 0.3rem;
   background: #fafafa;
   border-radius: 0.1rem;
   .row {

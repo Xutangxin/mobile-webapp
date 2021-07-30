@@ -58,3 +58,14 @@ export function getDetailFun(id, cid, type) {
     });
 
 }
+
+//获取搜索数据
+export function getSearchFun(kwd) {
+    return request({
+        url: "/searchList.php",
+        params: {
+            keyword: kwd,
+        }
+    });
+
+}

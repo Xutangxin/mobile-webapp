@@ -60,7 +60,8 @@ const routes = [
     path: '/search',
     component: Search,
     meta: {
-      title: '搜索'
+      title: '搜索',
+      keepAlive: true,
     }
   }
 
