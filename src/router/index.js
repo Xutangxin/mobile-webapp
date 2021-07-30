@@ -6,6 +6,8 @@ const List = () => import('@/views/list/List');
 const ArticleView = () => import('@/views/article/ArticleView');
 const InsView = () => import('@/views/ins/InsView');
 const Detail = () => import('@/views/detail/Detail');
+const Search = () => import('@/views/search/Search');
+
 
 
 Vue.use(VueRouter)
@@ -52,6 +54,13 @@ const routes = [
     component: Detail,
     meta: {
       title: '详情'
+    }
+  },
+  {
+    path: '/search',
+    component: Search,
+    meta: {
+      title: '搜索'
     }
   }
 
