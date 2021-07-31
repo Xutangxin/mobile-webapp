@@ -1,4 +1,4 @@
-# mobile
+## mobile webapp
 
 ## Project setup
 ```
@@ -20,5 +20,7 @@ npm run build
 npm run lint
 ```
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+### 组件结构图
+![组件结构图](./src/assets/images/components.png "组件结构图")
+
+
